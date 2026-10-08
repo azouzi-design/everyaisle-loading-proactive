@@ -32,5 +32,5 @@
 
 .surface {
   stroke: var(--brand);
-  stroke-opacity: 0.06;
+  stroke-opacity: 0.1;
 }
