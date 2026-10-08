@@ -49,7 +49,7 @@ Fill + hold runs once per step (×3), then reset. Total cycle: **7.7 s**, repeat
 - **Dotted track:** 22 dots, 5 pt diameter, on a 147 pt radius. Each dot turns from `#CFD4DC`
   to `--brand` (300 ms ease-out) as the arc passes its angle, so dots and arc fill together.
 - **Step checkmarks:** the dot nearest the middle of each step's arc is swapped for the
-  16 pt checkmark icon (Figma node 582:898, fill `--brand`, white tick) when the arc reaches it.
+  20 pt checkmark icon (Figma node 582:898, fill `--brand`, white tick) when the arc reaches it.
   The dot shrinks out (300 ms) while the check pops in (500 ms, `cubic-bezier(0.34, 1.56, 0.64, 1)`,
   scale 0 → 1 with overshoot). Checks clear with the dots on reset.
 - **Reduced motion:** the ring jumps to each third and labels crossfade without scaling.
@@ -84,6 +84,15 @@ It's registered with `@property` in `globals.css`, so changing it animates (450 
 Label text stays navy `#102A50` regardless of theme. The demo's color picker
 (`ColorPicker.tsx`, Figma node 582:910) offers Navy, Bright aqua `#61C5E5`,
 Creator teal `#178FAE` and Citrus gold `#F4B642`.
+
+## Ring depth
+
+Lit from the top to match the brand panel (see `LoadingRing.module.css`):
+
+- **Track:** a shallow groove, `#E2E5EA` darkened 8 % toward navy at the top → lightened 45 % at the bottom
+- **Fill:** brand +0.08 OKLCH lightness at the top → brand (45 %) → brand −0.10 at the bottom
+- **Rim highlight:** 1.5 pt white line along the fill's outer edge, 45 % opacity at the top fading to 0 by 60 % height
+- **Shadow:** fill and checkmarks drop a 0 / 2 / 2.5 blur shadow in `--brand` at 35 % opacity
 
 ## Brand panel depth
 

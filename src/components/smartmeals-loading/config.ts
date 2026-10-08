@@ -32,7 +32,7 @@ export const RING = {
     /** Angle of the first dot, in degrees, where -90 is 12 o'clock. */
     startDeg: -96.3,
     /** The middle dot of each step's arc becomes a checkmark (Figma node 582:898) when filled. */
-    checkSize: 16,
+    checkSize: 20,
   },
 };
 

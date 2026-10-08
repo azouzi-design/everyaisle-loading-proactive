@@ -1,0 +1,30 @@
+/*
+ * Ring depth, lit from the top like the brand panel:
+ * - track reads as a shallow groove (darker top → lighter bottom),
+ * - fill is a raised band (lighter top → brand → deeper bottom) with a
+ *   white rim highlight that fades toward the bottom,
+ * - fill and checkmarks cast a soft brand-tinted shadow.
+ * All colors derive from --brand, so theming and its transition carry over.
+ */
+.ring {
+  --track-top: color-mix(in oklab, var(--loader-empty), #102a50 8%);
+  --track-bottom: color-mix(in oklab, var(--loader-empty), white 45%);
+  --fill-light: oklch(from var(--brand) calc(l + 0.08) c h);
+  --fill-deep: oklch(from var(--brand) calc(l - 0.1) c h);
+}
+
+.trackTop { stop-color: var(--track-top); }
+.trackMid { stop-color: var(--loader-empty); }
+.trackBottom { stop-color: var(--track-bottom); }
+
+.fillLight { stop-color: var(--fill-light); }
+.fillBase { stop-color: var(--brand); }
+.fillDeep { stop-color: var(--fill-deep); }
+
+.rimTop { stop-color: white; stop-opacity: 0.45; }
+.rimBottom { stop-color: white; stop-opacity: 0; }
+
+.shadow {
+  flood-color: var(--brand);
+  flood-opacity: 0.35;
+}
