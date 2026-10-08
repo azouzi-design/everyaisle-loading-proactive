@@ -1,19 +1,9 @@
 import Image from "next/image";
 
+import { LoadingRing } from "./LoadingRing";
+
 // Figma: Every Aisle — Branding, node 581:807 ("LockScreen").
 // Fixed 390×844 device frame; children are positioned in frame coordinates.
-
-const DOT_COUNT = 22;
-const DOT_RADIUS = 147;
-const DOT_START_DEG = -96.3;
-
-const dots = Array.from({ length: DOT_COUNT }, (_, i) => {
-  const angle = ((DOT_START_DEG + (360 / DOT_COUNT) * i) * Math.PI) / 180;
-  return {
-    cx: +(150 + DOT_RADIUS * Math.cos(angle)).toFixed(2),
-    cy: +(150 + DOT_RADIUS * Math.sin(angle)).toFixed(2),
-  };
-});
 
 export function LockScreen() {
   return (
@@ -38,25 +28,7 @@ export function LockScreen() {
           className="absolute left-[125.56px] top-[241.3px] h-[11.17px] w-[138.23px]"
         />
 
-        {/* Loader */}
-        <div className="absolute left-[28px] top-[440px] size-[334px]">
-          <Image src="/figma/ring-track.svg" alt="" width={334} height={334} className="absolute inset-0" />
-          <Image src="/figma/ring-arc.svg" alt="" width={167} height={177.972} className="absolute left-0 top-0" />
-        </div>
-        <svg
-          aria-hidden
-          width={300}
-          height={300}
-          viewBox="0 0 300 300"
-          className="absolute left-[45px] top-[458.83px]"
-        >
-          {dots.map((d, i) => (
-            <circle key={i} cx={d.cx} cy={d.cy} r={2.5} fill="#CFD4DC" />
-          ))}
-        </svg>
-        <p className="absolute left-1/2 top-[598px] -translate-x-1/2 whitespace-nowrap text-[16px] tracking-[-0.5px] text-navy-700">
-          Logging you into SmartMeals..
-        </p>
+        <LoadingRing />
       </div>
 
       {/* Status bar */}
