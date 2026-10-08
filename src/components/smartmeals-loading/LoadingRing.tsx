@@ -9,6 +9,10 @@ import { useStepTimeline } from "./useStepTimeline";
 
 const C = RING.size / 2;
 const RING_R = (RING.size - RING.stroke) / 2;
+const INNER_R = RING_R - RING.stroke / 2;
+
+// Children inherit the dash, so every layer drawn with pathLength={100} sweeps together.
+const PROGRESS_STYLE = { "--progress": 0, strokeDasharray: "var(--progress) 100" } as CSSProperties;
 const SIGN = DIRECTION === "clockwise" ? 1 : -1;
 
 // SVG circles start at 3 o'clock: rotate to 12, and mirror for counter-clockwise.
@@ -68,7 +72,8 @@ type Props = {
  * step's label in the middle. Scales to its container's width.
  */
 export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className = "" }: Props) {
-  const fillRef = useRef<SVGGElement>(null);
+  const surfaceRef = useRef<SVGGElement>(null);
+  const arcRef = useRef<SVGGElement>(null);
   const id = useId();
   const ids = { track: `${id}track`, fill: `${id}fill`, rim: `${id}rim`, shadow: `${id}shadow` };
   const dotRefs = useRef<(SVGGElement | null)[]>([]);
@@ -78,10 +83,10 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
     stepCount: steps.length,
     ...timing,
     onFrame: ({ progress, fillOpacity }) => {
-      const fill = fillRef.current;
-      if (fill) {
-        fill.style.setProperty("--progress", `${progress * 100}`);
-        fill.style.opacity = `${fillOpacity}`;
+      // Surface and arc share one progress value and fade out together on reset.
+      for (const el of [surfaceRef.current, arcRef.current]) {
+        el?.style.setProperty("--progress", `${progress * 100}`);
+        el?.style.setProperty("opacity", `${fillOpacity}`);
       }
       dots.forEach((dot, i) => {
         dotRefs.current[i]?.toggleAttribute("data-filled", fillOpacity === 1 && progress >= dot.at);
@@ -132,15 +137,25 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
           </filter>
         </defs>
 
+        <g ref={surfaceRef} style={PROGRESS_STYLE}>
+          {/* Inner surface: a pie wedge (stroke as wide as the radius) sweeping with the arc. */}
+          <circle
+            cx={C}
+            cy={C}
+            r={INNER_R / 2}
+            fill="none"
+            strokeWidth={INNER_R}
+            pathLength={100}
+            transform={FILL_TRANSFORM}
+            className={styles.surface}
+          />
+        </g>
+
         <circle cx={C} cy={C} r={RING_R} fill="none" stroke={`url(#${ids.track})`} strokeWidth={RING.stroke} />
 
         {/* Shadow on an unrotated wrapper so it always falls downward. */}
         <g filter={`url(#${ids.shadow})`}>
-          <g
-            ref={fillRef}
-            transform={FILL_TRANSFORM}
-            style={{ "--progress": 0, strokeDasharray: "var(--progress) 100" } as CSSProperties}
-          >
+          <g ref={arcRef} transform={FILL_TRANSFORM} style={PROGRESS_STYLE}>
             <circle
               cx={C}
               cy={C}

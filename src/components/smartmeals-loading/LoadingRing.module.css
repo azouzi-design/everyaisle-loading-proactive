@@ -3,7 +3,8 @@
  * - track reads as a shallow groove (darker top → lighter bottom),
  * - fill is a raised band (lighter top → brand → deeper bottom) with a
  *   white rim highlight that fades toward the bottom,
- * - fill and checkmarks cast a soft brand-tinted shadow.
+ * - fill and checkmarks cast a soft brand-tinted shadow,
+ * - the inner surface tints with the brand as the arc sweeps.
  * All colors derive from --brand, so theming and its transition carry over.
  */
 .ring {
@@ -27,4 +28,9 @@
 .shadow {
   flood-color: var(--brand);
   flood-opacity: 0.35;
+}
+
+.surface {
+  stroke: var(--brand);
+  stroke-opacity: 0.03;
 }
