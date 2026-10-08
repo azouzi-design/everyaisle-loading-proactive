@@ -3,6 +3,11 @@
 :root {
   --background: #fcfcfc;
   --foreground: #171717;
+
+  /* Loading ring */
+  --loader-empty: var(--color-navy-200);
+  --loader-dot-empty: #cfd4dc;
+  --loader-filled: var(--color-navy-900);
 }
 
 @theme inline {
@@ -22,11 +27,14 @@ body {
 }
 
 /*
- * Scale the fixed 390×844 phone down to fit the viewport (never up).
+ * Demo presentation: show the 390×844 phone at a comfortable size and
+ * shrink it further on short or narrow viewports (never upscale).
  * tan(atan2(a, b)) divides two lengths into a unitless ratio.
  */
 .phone-fit {
-  width: min(390px, 100%, calc((100dvh - 48px) * 390 / 844));
+  --phone-height: min(560px, 100dvh - 160px);
+
+  width: min(100%, calc(var(--phone-height) * 390 / 844));
   aspect-ratio: 390 / 844;
   container-type: inline-size;
 }
