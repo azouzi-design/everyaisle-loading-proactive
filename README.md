@@ -48,6 +48,10 @@ Fill + hold runs once per step (×3), then reset. Total cycle: **7.7 s**, repeat
 - **Outer ring:** 334 pt diameter, 7.34 pt stroke, butt caps. Empty `#E2E5EA`, filled `--brand`.
 - **Dotted track:** 22 dots, 5 pt diameter, on a 147 pt radius. Each dot turns from `#CFD4DC`
   to `--brand` (300 ms ease-out) as the arc passes its angle, so dots and arc fill together.
+- **Step checkmarks:** the dot nearest the middle of each step's arc is swapped for the
+  16 pt checkmark icon (Figma node 582:898, fill `--brand`, white tick) when the arc reaches it.
+  The dot shrinks out (300 ms) while the check pops in (500 ms, `cubic-bezier(0.34, 1.56, 0.64, 1)`,
+  scale 0 → 1 with overshoot). Checks clear with the dots on reset.
 - **Reduced motion:** the ring jumps to each third and labels crossfade without scaling.
 
 ### Label — Material shared axis Z

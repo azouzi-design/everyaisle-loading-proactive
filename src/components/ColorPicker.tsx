@@ -19,7 +19,7 @@ export function ColorPicker({ value, onChange, className = "" }: Props) {
     <div
       role="radiogroup"
       aria-label="Primary color"
-      className={`flex items-center gap-[4px] rounded-[16px] border border-[#e8e8e8] bg-white py-[4px] pl-[12px] pr-[4px] ${className}`}
+      className={`flex items-center gap-[4px] rounded-[12px] border border-[#e8e8e8] bg-white py-[4px] pl-[12px] pr-[4px] ${className}`}
     >
       <p className="w-[74px] shrink-0 text-[12px] text-black">Pick color:</p>
       {BRAND_COLORS.map((color) => {
@@ -34,8 +34,8 @@ export function ColorPicker({ value, onChange, className = "" }: Props) {
             title={color.name}
             onClick={() => onChange(color.value)}
             style={{ backgroundColor: color.value }}
-            className={`size-[38px] shrink-0 cursor-pointer rounded-[12px] transition-[box-shadow,scale] duration-200 ease-out outline-offset-2 hover:scale-[1.04] focus-visible:outline-2 focus-visible:outline-[#102a50] active:scale-95 ${
-              selected ? "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_3px_rgb(0_0_0/0.08)]" : ""
+            className={`size-[28px] shrink-0 cursor-pointer rounded-[8px] transition-[box-shadow,scale] duration-200 ease-out outline-offset-2 hover:scale-[1.06] focus-visible:outline-2 focus-visible:outline-[#102a50] active:scale-95 ${
+              selected ? "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_2.5px_rgb(0_0_0/0.08)]" : ""
             }`}
           />
         );

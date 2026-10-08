@@ -14,7 +14,7 @@ export function BrandDemo({ children }: { children: ReactNode }) {
       className="brand-transition flex h-dvh flex-1 items-center justify-center overflow-hidden p-4"
     >
       <div className="phone-fit">{children}</div>
-      <ColorPicker value={brand} onChange={setBrand} className="fixed bottom-[12px] left-1/2 -translate-x-1/2" />
+      <ColorPicker value={brand} onChange={setBrand} className="fixed right-[12px] bottom-[12px]" />
     </main>
   );
 }
