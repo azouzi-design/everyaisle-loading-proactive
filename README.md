@@ -63,7 +63,7 @@ Duration 500 ms, easing `cubic-bezier(0.2, 0, 0, 1)`.
 | Outgoing | 1 → 0 over first 30 % (150 ms), linear | 1 → 1.1 |
 | Incoming | 0 → 1 over last 70 % (350 ms, 150 ms delay) | 0.8 → 1 |
 
-Type: Inter Regular 16 / -0.5 tracking, `#102A50`.
+Type: Inter Medium 16 / -0.5 tracking, `#102A50`.
 
 ### Steps
 

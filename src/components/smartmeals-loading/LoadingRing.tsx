@@ -194,7 +194,7 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
       <StepLabel
         labels={steps}
         active={step}
-        className="absolute inset-0 text-[16px] tracking-[-0.5px] whitespace-nowrap text-navy-900"
+        className="absolute inset-0 text-[16px] font-medium tracking-[-0.5px] whitespace-nowrap text-navy-900"
       />
     </div>
   );
