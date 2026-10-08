@@ -94,7 +94,7 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
       <svg
         aria-hidden
         viewBox={`0 0 ${RING.size} ${RING.size}`}
-        className={`${styles.ring} absolute inset-0 size-full`}
+        className={`${styles.ring} absolute inset-0 size-full overflow-visible`}
       >
         <defs>
           <linearGradient id={ids.track} gradientUnits="userSpaceOnUse" x1={0} y1={0} x2={0} y2={RING.size}>
