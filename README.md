@@ -93,7 +93,8 @@ Lit from the top to match the brand panel (see `LoadingRing.module.css`):
 - **Fill:** brand +0.08 OKLCH lightness at the top → brand (45 %) → brand −0.10 at the bottom
 - **Rim highlight:** 1.5 pt white line along the fill's outer edge, 45 % opacity at the top fading to 0 by 60 % height
 - **Shadow:** fill and checkmarks drop a 0 / 2 / 2.5 blur shadow in `--brand` at 35 % opacity
-- **Inner surface:** a wedge inside the ring, `--brand` at 3 % opacity, sweeping in lockstep with the arc and fading with it on reset
+- **Inner surface:** a wedge inside the ring, `--brand` at 3 % opacity, sweeping in lockstep with the arc and fading with it on reset.
+  Its edges are feathered with an 18 pt Gaussian blur (`RING.surfaceFeather`), then clipped to the ring's inner edge, so the tint fades in with no hard line
 
 ## Brand panel depth
 

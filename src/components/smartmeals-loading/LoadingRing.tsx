@@ -75,7 +75,14 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
   const surfaceRef = useRef<SVGGElement>(null);
   const arcRef = useRef<SVGGElement>(null);
   const id = useId();
-  const ids = { track: `${id}track`, fill: `${id}fill`, rim: `${id}rim`, shadow: `${id}shadow` };
+  const ids = {
+    track: `${id}track`,
+    fill: `${id}fill`,
+    rim: `${id}rim`,
+    shadow: `${id}shadow`,
+    feather: `${id}feather`,
+    inner: `${id}inner`,
+  };
   const dotRefs = useRef<(SVGGElement | null)[]>([]);
   const checkDots = useMemo(() => new Set(middleDots(steps.length)), [steps.length]);
 
@@ -132,12 +139,20 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
             <stop offset={0} className={styles.rimTop} />
             <stop offset={1} className={styles.rimBottom} />
           </linearGradient>
+          {/* Feathers the wedge's edges so the tint fades in instead of a hard line. */}
+          <filter id={ids.feather} filterUnits="userSpaceOnUse" x={0} y={0} width={RING.size} height={RING.size}>
+            <feGaussianBlur stdDeviation={RING.surfaceFeather} />
+          </filter>
+          <clipPath id={ids.inner}>
+            <circle cx={C} cy={C} r={INNER_R} />
+          </clipPath>
           <filter id={ids.shadow} x="-25%" y="-25%" width="150%" height="150%">
             <feDropShadow dx={0} dy={2} stdDeviation={2.5} className={styles.shadow} />
           </filter>
         </defs>
 
-        <g ref={surfaceRef} style={PROGRESS_STYLE}>
+        {/* Clip applies after the blur, keeping the feathered tint inside the track. */}
+        <g ref={surfaceRef} style={PROGRESS_STYLE} filter={`url(#${ids.feather})`} clipPath={`url(#${ids.inner})`}>
           {/* Inner surface: a pie wedge (stroke as wide as the radius) sweeping with the arc. */}
           <circle
             cx={C}

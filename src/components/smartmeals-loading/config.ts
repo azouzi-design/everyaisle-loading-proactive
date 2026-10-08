@@ -24,6 +24,8 @@ export const TIMING = {
 export const RING = {
   size: 334,
   stroke: 7.34,
+  /** Blur radius (stdDeviation) that softens the edges of the tinted inner surface. */
+  surfaceFeather: 18,
   /** Inner dotted track (Figma "Repeat group 1"). */
   dots: {
     count: 22,
