@@ -1,27 +1,27 @@
 /*
- * Navy brand panel with layered depth:
+ * Brand panel with layered depth, all derived from --brand:
  * 1. a soft spotlight behind the logo,
  * 2. a vertical gradient (lighter top → deeper bottom),
  * 3. inset highlights (top rim + inner glow) and an inset bottom shade,
  * 4. a faint outer shadow lifting it off the white screen.
  */
 .panel {
-  --navy: #102a50;
-  --navy-light: #1c3d6e;
-  --navy-deep: #0a1d3a;
+  /* Shift lightness only, so every brand color keeps its hue and saturation. */
+  --light: oklch(from var(--brand) calc(l + 0.05) c h);
+  --deep: oklch(from var(--brand) calc(l - 0.12) c h);
 
   position: relative;
   overflow: hidden;
   border-radius: 12px;
   background:
     radial-gradient(60% 45% at 50% 46%, rgb(255 255 255 / 0.09), transparent 70%),
-    linear-gradient(180deg, var(--navy-light) 0%, var(--navy) 45%, var(--navy-deep) 100%);
+    linear-gradient(180deg, var(--light) 0%, var(--brand) 45%, var(--deep) 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.18),
     inset 0 0 0 1px rgb(255 255 255 / 0.05),
     inset 0 24px 48px -28px rgb(255 255 255 / 0.22),
     inset 0 -32px 56px -32px rgb(0 0 0 / 0.45),
-    0 12px 28px -16px rgb(16 42 80 / 0.45);
+    0 12px 28px -16px color-mix(in srgb, var(--brand) 45%, transparent);
 }
 
 /* Fine diagonal sheen across the top-left corner. */

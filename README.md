@@ -21,6 +21,8 @@ src/components/smartmeals-loading/
   BrandPanel.tsx/.css    ← navy header with depth
   LoadingScreen.tsx      ← full screen composition
 src/components/PhoneFrame.tsx   ← demo-only device chrome (don't ship)
+src/components/BrandDemo.tsx    ← demo-only page shell + color picker state
+src/components/ColorPicker.tsx  ← demo-only brand color picker
 public/figma/                   ← SVG assets exported from Figma
 ```
 
@@ -43,9 +45,9 @@ Platform-agnostic, so it can be rebuilt natively (SwiftUI, Compose, Lottie, …)
 Fill + hold runs once per step (×3), then reset. Total cycle: **7.7 s**, repeats forever.
 
 - **Direction:** clockwise, starting at 12 o'clock (`DIRECTION` in `config.ts`).
-- **Outer ring:** 334 pt diameter, 7.34 pt stroke, butt caps. Empty `#E2E5EA`, filled `#102A50`.
+- **Outer ring:** 334 pt diameter, 7.34 pt stroke, butt caps. Empty `#E2E5EA`, filled `--brand`.
 - **Dotted track:** 22 dots, 5 pt diameter, on a 147 pt radius. Each dot turns from `#CFD4DC`
-  to `#102A50` (300 ms ease-out) as the arc passes its angle, so dots and arc fill together.
+  to `--brand` (300 ms ease-out) as the arc passes its angle, so dots and arc fill together.
 - **Reduced motion:** the ring jumps to each third and labels crossfade without scaling.
 
 ### Label — Material shared axis Z
@@ -57,7 +59,7 @@ Duration 500 ms, easing `cubic-bezier(0.2, 0, 0, 1)`.
 | Outgoing | 1 → 0 over first 30 % (150 ms), linear | 1 → 1.1 |
 | Incoming | 0 → 1 over last 70 % (350 ms, 150 ms delay) | 0.8 → 1 |
 
-Type: Inter Regular 16 / -0.5 tracking, `#4E617E`.
+Type: Inter Regular 16 / -0.5 tracking, `#102A50`.
 
 ### Steps
 
@@ -65,11 +67,25 @@ Type: Inter Regular 16 / -0.5 tracking, `#4E617E`.
 2. Linking to your HARPS loyalty
 3. Personalizing for you
 
+## Theming
+
+One CSS variable, `--brand`, colors the ring fill, the dots and the brand panel
+(default `#102A50`). Set it on any ancestor:
+
+```tsx
+<div style={{ "--brand": "#178FAE" }}><LoadingScreen /></div>
+```
+
+It's registered with `@property` in `globals.css`, so changing it animates (450 ms).
+Label text stays navy `#102A50` regardless of theme. The demo's color picker
+(`ColorPicker.tsx`, Figma node 582:910) offers Navy, Bright aqua `#61C5E5`,
+Creator teal `#178FAE` and Citrus gold `#F4B642`.
+
 ## Brand panel depth
 
-Layered on `#102A50` (see `BrandPanel.module.css`):
+Layered on `--brand` (see `BrandPanel.module.css`):
 
-- Vertical gradient `#1C3D6E` → `#102A50` (45 %) → `#0A1D3A`
+- Vertical gradient: brand +0.05 OKLCH lightness → brand (45 %) → brand −0.12 lightness
 - Soft white spotlight behind the logo (9 % opacity radial)
 - Inset top rim highlight (1 pt, 18 % white) and inner top glow
 - Inset bottom shade (45 % black) and a faint outer drop shadow

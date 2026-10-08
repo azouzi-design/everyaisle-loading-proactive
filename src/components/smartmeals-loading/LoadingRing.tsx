@@ -61,7 +61,7 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
           cy={C}
           r={RING_R}
           fill="none"
-          stroke="var(--loader-filled)"
+          stroke="var(--brand)"
           strokeWidth={RING.stroke}
           pathLength={100}
           strokeDasharray="0 100"
@@ -76,7 +76,7 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
             cx={d.cx}
             cy={d.cy}
             r={RING.dots.diameter / 2}
-            className="fill-(--loader-dot-empty) transition-[fill] duration-300 ease-out data-filled:fill-(--loader-filled)"
+            className="fill-(--loader-dot-empty) transition-[fill] duration-300 ease-out data-filled:fill-(--brand)"
           />
         ))}
       </svg>
@@ -84,7 +84,7 @@ export function LoadingRing({ steps = LOADING_STEPS, timing = TIMING, className 
       <StepLabel
         labels={steps}
         active={step}
-        className="absolute inset-0 text-[16px] tracking-[-0.5px] whitespace-nowrap text-navy-700"
+        className="absolute inset-0 text-[16px] tracking-[-0.5px] whitespace-nowrap text-navy-900"
       />
     </div>
   );
